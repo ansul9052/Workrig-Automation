@@ -40,7 +40,7 @@ public class Workrig_Autoamtion {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn.btn-info")));
 
         WebElement loginLogoutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
-        //loginLogoutButton.click();
+        loginLogoutButton.click();
     }
 
     @AfterMethod
