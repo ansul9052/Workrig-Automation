@@ -42,7 +42,6 @@ public class Workrig_Autoamtion {
 
         WebElement loginLogoutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
         loginLogoutButton.click();
-        Thread.sleep(2000);
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
