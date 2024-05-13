@@ -2,6 +2,7 @@ package WorkrigAutoamation;
 
 import java.time.Duration;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +27,7 @@ public class Workrig_Autoamtion {
     }
 
     @Test
-    public void loginAndLogoutTest() {
+    public void loginAndLogoutTest() throws InterruptedException {
         driver.get("https://quloi.myworkrig.com/");
         WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
         WebElement password = driver.findElement(By.xpath("//input[@id='form-password']"));
@@ -41,6 +42,9 @@ public class Workrig_Autoamtion {
 
         WebElement loginLogoutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
         loginLogoutButton.click();
+        Thread.sleep(2000);
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 
     @AfterMethod
