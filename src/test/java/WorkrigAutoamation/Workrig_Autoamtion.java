@@ -26,7 +26,7 @@ public class Workrig_Autoamtion {
         driver.manage().window().maximize();
     }
 
-    @Test
+    @Test()
     public void loginAndLogoutTest() throws InterruptedException {
         driver.get("https://quloi.myworkrig.com/");
         WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
