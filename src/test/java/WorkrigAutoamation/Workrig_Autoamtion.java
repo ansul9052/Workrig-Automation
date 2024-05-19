@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 //import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -34,21 +35,20 @@ public class Workrig_Autoamtion {
 
     @Test()
     public void loginAndLogoutTest() throws InterruptedException {
-        driver.get("https://quloi.myworkrig.com/");
+    	driver.get("https://quloi.myworkrig.com/");
+        
         WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
         WebElement password = driver.findElement(By.xpath("//input[@id='form-password']"));
         WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
 
         username.sendKeys("anshul.gaur");
         password.sendKeys("vd8m5791");
-        loginButton.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement loginLogoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", loginLogoutButton);
-        Thread.sleep(5000);
-        loginLogoutButton.click();
         
+        Actions actions = new Actions(driver);
+        actions.moveToElement(loginButton).click().perform();
+        
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info"))).click();
         
         Alert alert = driver.switchTo().alert();
         alert.accept();
