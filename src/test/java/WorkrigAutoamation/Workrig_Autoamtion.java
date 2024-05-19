@@ -25,7 +25,7 @@ public class Workrig_Autoamtion {
 //        ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless");
 
-        WebDriverManager.iedriver().setup();
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
