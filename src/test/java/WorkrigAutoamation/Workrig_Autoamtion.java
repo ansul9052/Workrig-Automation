@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,10 +39,12 @@ public class Workrig_Autoamtion  {
         username.sendKeys("anshul.gaur");
         password.sendKeys("vd8m5791");
         loginButton.click();
-        Thread.sleep(5000);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn.btn-info")));
         WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
+        Thread.sleep(1000); 
+        
+        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
         checkInOutButton.click();
 
         Alert alert = driver.switchTo().alert();
