@@ -21,7 +21,7 @@ public class Workrig_Autoamtion {
 
     @BeforeMethod
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
+    	 WebDriverManager.chromedriver().browserVersion("124.0.6367.209").setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
