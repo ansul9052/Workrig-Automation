@@ -5,5 +5,5 @@
     <classes>
       <class name="WorkrigAutomation.Workrig_Automation"/>
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test>
+</suite>
