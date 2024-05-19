@@ -38,7 +38,6 @@ public class Workrig_Autoamtion {
         loginButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        // Explicit wait for the login/logout button to be clickable
         WebElement loginLogoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
         loginLogoutButton.click();
         Alert alert = driver.switchTo().alert();
