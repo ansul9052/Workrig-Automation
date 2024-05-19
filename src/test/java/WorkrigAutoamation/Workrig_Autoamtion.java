@@ -14,7 +14,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Workrig_Autoamtion {
 
@@ -25,7 +25,8 @@ public class Workrig_Autoamtion {
 //        ChromeOptions options = new ChromeOptions();
 //        options.addArguments("--headless");
 
-        WebDriverManager.chromedriver().setup();
+       // WebDriverManager.chromedriver().setup();
+    	System.setProperty("webdriver.chrome.driver", "D:\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
