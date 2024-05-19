@@ -46,6 +46,7 @@ public class Workrig_Autoamtion {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement loginLogoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", loginLogoutButton);
+        Thread.sleep(5000);
         loginLogoutButton.click();
         
         
