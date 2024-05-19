@@ -33,7 +33,7 @@ public class Workrig_Autoamtion  {
         WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
         WebElement password = driver.findElement(By.xpath("//input[@id='form-password']"));
         WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
-        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
+
 
         username.sendKeys("anshul.gaur");
         password.sendKeys("vd8m5791");
@@ -41,6 +41,7 @@ public class Workrig_Autoamtion  {
         Thread.sleep(5000);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn.btn-info")));
+        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
         checkInOutButton.click();
 
         Alert alert = driver.switchTo().alert();
