@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -44,7 +45,10 @@ public class Workrig_Autoamtion {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement loginLogoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", loginLogoutButton);
         loginLogoutButton.click();
+        
+        
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
