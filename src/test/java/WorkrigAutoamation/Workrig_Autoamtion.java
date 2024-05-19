@@ -21,7 +21,7 @@ public class Workrig_Autoamtion {
 
     @BeforeMethod
     public void setUp() {
-    	 WebDriverManager.chromedriver().browserVersion("124.0.6367.209").setup();
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
@@ -38,9 +38,8 @@ public class Workrig_Autoamtion {
         loginButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn.btn-info")));
-
-        WebElement loginLogoutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
+        // Explicit wait for the login/logout button to be clickable
+        WebElement loginLogoutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
         loginLogoutButton.click();
         Alert alert = driver.switchTo().alert();
         alert.accept();
