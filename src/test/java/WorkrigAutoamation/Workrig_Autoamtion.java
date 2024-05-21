@@ -46,7 +46,7 @@ public class Workrig_Autoamtion  {
         Thread.sleep(1000); 
         
         checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
-        checkInOutButton.click();
+      //  checkInOutButton.click();
 
         Alert alert = driver.switchTo().alert();
         alert.accept();
