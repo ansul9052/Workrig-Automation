@@ -5,9 +5,9 @@
     <classes>
       <class name="WorkrigAutoamation.Workrig_Autoamtion">
         <methods>
+          <include name="loginAndCheckInOut"/>
           <include name="tearDown"/>
-          <include name="setUp"/>
-          <include name="loginAndLogoutTest"/>
+          <include name="setup"/>
         </methods>
       </class> <!-- WorkrigAutoamation.Workrig_Autoamtion -->
     </classes>

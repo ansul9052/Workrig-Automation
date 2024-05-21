@@ -24,6 +24,7 @@ public class Workrig_Autoamtion  {
         System.setProperty("webdriver.chrome.driver", "D:\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
