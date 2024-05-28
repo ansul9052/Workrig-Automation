@@ -21,7 +21,7 @@ public class Workrig_Autoamtion  {
 
     @BeforeMethod
     public void setup() {
-        System.setProperty("webdriver.chrome.driver", "D:\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\anshu\\eclipse-workspace\\Workrig-Autoamation\\ChromeDriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
@@ -41,15 +41,15 @@ public class Workrig_Autoamtion  {
         password.sendKeys("vd8m5791");
         loginButton.click();
 
-//        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
-//        Thread.sleep(1000); 
-//        
-//        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
-      //  checkInOutButton.click();
+        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
+        Thread.sleep(1000); 
+        
+        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
+        checkInOutButton.click();
 
-        //Alert alert = driver.switchTo().alert();
-       // alert.accept();
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 
     @AfterMethod
