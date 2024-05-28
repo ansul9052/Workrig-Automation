@@ -41,11 +41,11 @@ public class Workrig_Autoamtion  {
         password.sendKeys("vd8m5791");
         loginButton.click();
 
-        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
-        Thread.sleep(1000); 
-        
-        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
+//        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
+//        Thread.sleep(1000); 
+//        
+//        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
       //  checkInOutButton.click();
 
         //Alert alert = driver.switchTo().alert();
