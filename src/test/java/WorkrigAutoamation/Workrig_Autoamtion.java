@@ -1,58 +1,79 @@
 package WorkrigAutoamation;
 
 import java.time.Duration;
-
-import org.openqa.selenium.Alert;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Workrig_Autoamtion  {
-
+public class Workrig_Autoamtion {
     WebDriver driver;
     WebDriverWait wait;
+    Logger logger = Logger.getLogger(Workrig_Autoamtion.class.getName());
 
-    @BeforeMethod
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\anshu\\eclipse-workspace\\Workrig-Autoamation\\ChromeDriver\\chromedriver.exe");
-        driver = new ChromeDriver();
+    @BeforeClass
+    public void setUp() {
+        ChromeOptions option = new ChromeOptions();
+//        option.addArguments("--headless");
+        driver = new ChromeDriver(option);
+        option.addArguments("--disable-notifications");
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().deleteAllCookies();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     @Test
-    public void loginAndCheckInOut() throws InterruptedException {
-        driver.get("https://quloi.myworkrig.com/");
+    public void NaukriProfileUpdate() {
+        try {
+            driver.navigate().to("https://www.naukri.com/");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id='login_Layer']")));
 
-        WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='form-password']"));
-        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+            driver.findElement(By.xpath("//a[@id='login_Layer']")).click();
 
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Enter your active Email ID / Username']")));
+            driver.findElement(By.xpath("//input[@placeholder='Enter your active Email ID / Username']")).sendKeys("anshulgaur66@gmail.com");
+            driver.findElement(By.xpath("//input[@placeholder='Enter your password']")).sendKeys("Imgre@t12");
+            driver.findElement(By.xpath("//input[@placeholder='Enter your password']")).sendKeys(Keys.ENTER);
 
-        username.sendKeys("anshul.gaur");
-        password.sendKeys("vd8m5791");
-        loginButton.click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[normalize-space()='View profile']")));
+            driver.findElement(By.xpath("//a[normalize-space()='View profile']")).click();
 
-        WebElement checkInOutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", checkInOutButton);
-        Thread.sleep(1000); 
-        
-        checkInOutButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".btn.btn-info")));
-        checkInOutButton.click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='widgetHead']//span[@class='edit icon'][normalize-space()='editOneTheme']")));
 
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+            WebElement scroll = driver.findElement(By.cssSelector("div[class='prefill typ-14Medium'] div"));
+            WebElement edit = driver.findElement(By.xpath("//div[@class='widgetHead']//span[@class='edit icon'][normalize-space()='editOneTheme']"));
+
+            JavascriptExecutor js = (JavascriptExecutor)driver;
+            js.executeScript("arguments[0].scrollIntoView({block: 'center'});", scroll);
+            
+
+            edit.click();
+
+            WebElement editArea = driver.findElement(By.xpath("//textarea[@id='resumeHeadlineTxt']"));
+            editArea.sendKeys(Keys.BACK_SPACE);
+            editArea.sendKeys(".");
+            driver.findElement(By.xpath("//button[normalize-space()='Save']")).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class='msg']")));
+            String confirm = driver.findElement(By.xpath("//p[@class='msg']")).getText();
+            System.out.println(confirm);
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, "Issue in code", e);
+        }
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown() {
         driver.quit();
     }
