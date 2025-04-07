@@ -1,49 +1,38 @@
 package WorkrigAutoamation;
 
-import java.time.Duration;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import WorkrigAutoamation.pages.LoginPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Workrig_Autoamtion {
-
-    WebDriver driver;
+    private WebDriver driver;
+    private LoginPage loginPage;
 
     @BeforeMethod
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        loginPage = new LoginPage(driver);
     }
 
-    @Test()
-    public void loginAndLogoutTest() throws InterruptedException {
-        driver.get("https://quloi.myworkrig.com/");
-        WebElement username = driver.findElement(By.xpath("//input[@id='form-username']"));
-        WebElement password = driver.findElement(By.xpath("//input[@id='form-password']"));
-        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
-
-        username.sendKeys("anshul.gaur");
-        password.sendKeys("vd8m5791");
-        loginButton.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn.btn-info")));
-
-        WebElement loginLogoutButton = driver.findElement(By.cssSelector(".btn.btn-info"));
-        loginLogoutButton.click();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+    @Test
+    public void loginAndLogoutTest() {
+        // Navigate to login page
+        loginPage.navigateToLoginPage();
+        
+        // Perform login
+        loginPage.login();
+        
+        // Verify login success
+        loginPage.verifyLoginSuccess();
+        
+        // Perform logout
+        loginPage.logout();
     }
 
     @AfterMethod
