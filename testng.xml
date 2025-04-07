@@ -5,9 +5,10 @@
         <listener class-name="WorkrigAutoamation.listeners.TestListener"/>
     </listeners>
     
-    <test name="Login Test">
+    <test name="Login Tests">
         <classes>
             <class name="WorkrigAutoamation.Workrig_Autoamtion"/>
+            <!-- Add more test classes here -->
         </classes>
     </test>
 </suite>
