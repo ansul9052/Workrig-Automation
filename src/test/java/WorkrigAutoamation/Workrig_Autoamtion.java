@@ -1,44 +1,58 @@
 package WorkrigAutoamation;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import WorkrigAutoamation.pages.LoginPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.Assert;
 
+import WorkrigAutoamation.pages.LoginPage;
+import WorkrigAutoamation.utils.DriverManager;
+import WorkrigAutoamation.constants.AppConstants;
+
+/**
+ * Main test class for Workrig Automation.
+ * This class contains test methods for the Workrig application.
+ */
 public class Workrig_Autoamtion {
-    private WebDriver driver;
     private LoginPage loginPage;
 
+    /**
+     * Setup method that runs before each test
+     */
     @BeforeMethod
     public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        loginPage = new LoginPage(driver);
+        // Initialize WebDriver using DriverManager
+        DriverManager.getInstance().getDriver();
+        loginPage = new LoginPage(DriverManager.getInstance().getDriver());
     }
 
-    @Test
+    /**
+     * Test method for login and logout functionality
+     */
+    @Test(description = "Verify login and logout functionality")
     public void loginAndLogoutTest() {
         // Navigate to login page
         loginPage.navigateToLoginPage();
         
         // Perform login
-        loginPage.login();
+        boolean loginSuccessful = loginPage.login();
+        Assert.assertTrue(loginSuccessful, "Login failed");
         
         // Verify login success
-        loginPage.verifyLoginSuccess();
+        boolean loginVerified = loginPage.verifyLoginSuccess();
+        Assert.assertTrue(loginVerified, "Login verification failed");
         
         // Perform logout
-        loginPage.logout();
+        boolean logoutSuccessful = loginPage.logout();
+        Assert.assertTrue(logoutSuccessful, "Logout failed");
     }
 
+    /**
+     * Teardown method that runs after each test
+     */
     @AfterMethod
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        // Quit WebDriver using DriverManager
+        DriverManager.getInstance().quitDriver();
     }
 }

@@ -3,46 +3,88 @@ package WorkrigAutoamation.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import WorkrigAutoamation.constants.AppConstants;
+
+/**
+ * Login Page class that contains login page elements and methods.
+ * This class follows the Page Object Model pattern.
+ */
 public class LoginPage extends BasePage {
     
-    @FindBy(xpath = "//input[@id='form-username']")
+    @FindBy(xpath = AppConstants.USERNAME_FIELD_XPATH)
     private WebElement usernameInput;
     
-    @FindBy(xpath = "//input[@id='form-password']")
+    @FindBy(xpath = AppConstants.PASSWORD_FIELD_XPATH)
     private WebElement passwordInput;
     
-    @FindBy(css = "button[type='submit']")
+    @FindBy(css = AppConstants.LOGIN_BUTTON_CSS)
     private WebElement loginButton;
     
-    @FindBy(css = ".btn.btn-info")
+    @FindBy(css = AppConstants.LOGOUT_BUTTON_CSS)
     private WebElement logoutButton;
 
+    /**
+     * Constructor for LoginPage
+     * @param driver WebDriver instance
+     */
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
+    /**
+     * Navigate to login page
+     */
     public void navigateToLoginPage() {
-        driver.get(properties.getProperty("base.url"));
+        navigateTo(configManager.getProperty("base.url", AppConstants.BASE_URL));
     }
 
-    public void login() {
-        waitForElementVisible(usernameInput);
-        usernameInput.sendKeys(properties.getProperty("username"));
-        passwordInput.sendKeys(properties.getProperty("password"));
-        loginButton.click();
+    /**
+     * Login with default credentials
+     * @return true if login successful, false otherwise
+     */
+    public boolean login() {
+        return login(
+            configManager.getProperty("username", AppConstants.DEFAULT_USERNAME),
+            configManager.getProperty("password", AppConstants.DEFAULT_PASSWORD)
+        );
     }
 
-    public void verifyLoginSuccess() {
-        waitForElementVisible(logoutButton);
-        Assert.assertTrue(logoutButton.isDisplayed(), "Login was not successful");
+    /**
+     * Login with specified credentials
+     * @param username Username to login with
+     * @param password Password to login with
+     * @return true if login successful, false otherwise
+     */
+    public boolean login(String username, String password) {
+        boolean usernameEntered = enterText(usernameInput, username);
+        boolean passwordEntered = enterText(passwordInput, password);
+        boolean loginClicked = clickElement(loginButton);
+        
+        return usernameEntered && passwordEntered && loginClicked;
     }
 
-    public void logout() {
-        waitForElementClickable(logoutButton);
-        logoutButton.click();
-        driver.switchTo().alert().accept();
+    /**
+     * Verify login was successful
+     * @return true if login successful, false otherwise
+     */
+    public boolean verifyLoginSuccess() {
+        boolean isLoggedIn = isElementDisplayed(logoutButton);
+        Assert.assertTrue(isLoggedIn, AppConstants.LOGIN_FAILURE_MESSAGE);
+        return isLoggedIn;
+    }
+
+    /**
+     * Logout from the application
+     * @return true if logout successful, false otherwise
+     */
+    public boolean logout() {
+        boolean logoutClicked = clickElement(logoutButton);
+        if (logoutClicked) {
+            String alertText = handleAlert(true);
+            return alertText != null;
+        }
+        return false;
     }
 } 

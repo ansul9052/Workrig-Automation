@@ -1,7 +1,7 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 
 # BlueJ files
@@ -10,7 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -34,17 +34,22 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-# IDE-specific files
+# IDE files
 .idea/
 *.iml
+.vscode/
 .settings/
 .project
 .classpath
-.vscode/
 
-# TestNG
+# Test output
 test-output/
+reports/
 
-# WebDriver binaries
-drivers/
-.webdriver/
+# Selenium
+*.exe
+chromedriver*
+geckodriver*
+
+# Config files with sensitive data
+config.properties
